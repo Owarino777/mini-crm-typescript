@@ -228,26 +228,78 @@ async function showProducts() {
 
     try {
         const products = await productsService.getAll();
-        const list = document.createElement('ul');
+        const cardGrid = document.createElement('div');
+        cardGrid.className = 'card-grid';
 
         products.forEach((p: Product) => {
-            const preview: ProductPreview = {
-                id: p.id,
-                name: p.name,
-                price: p.price,
-                category: p.category,
-            };
-
-            const li = document.createElement('li');
-            li.textContent = `${preview.name} — ${preview.price.toFixed(2)} € — ${preview.category}`;
-            li.className = 'clickable';
-            li.addEventListener('click', () => {
-                void showProductDetails(preview.id);
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.addEventListener('click', () => {
+                void showProductDetails(p.id);
             });
-            list.appendChild(li);
+
+            const header = document.createElement('div');
+            header.className = 'card-header';
+            
+            const title = document.createElement('h3');
+            title.className = 'card-title';
+            title.textContent = p.name;
+            
+            const price = document.createElement('div');
+            price.className = 'card-price';
+            price.textContent = `${p.price.toFixed(2)} €`;
+            
+            header.appendChild(title);
+            header.appendChild(price);
+            card.appendChild(header);
+
+            const description = document.createElement('p');
+            description.className = 'card-description';
+            description.textContent = p.description;
+            card.appendChild(description);
+
+            const body = document.createElement('div');
+            body.className = 'card-body';
+            
+            const categoryField = document.createElement('div');
+            categoryField.className = 'card-field';
+            categoryField.innerHTML = `
+                <span class="card-label">Catégorie</span>
+                <span class="card-value">${p.category}</span>
+            `;
+            body.appendChild(categoryField);
+
+            const stockField = document.createElement('div');
+            stockField.className = 'card-field';
+            const stockBadgeClass = p.stock === 0 ? 'badge-stock-out' : p.stock < 20 ? 'badge-stock-low' : 'badge-stock-ok';
+            stockField.innerHTML = `
+                <span class="card-label">Stock</span>
+                <span class="card-badge ${stockBadgeClass}">${p.stock} unités</span>
+            `;
+            body.appendChild(stockField);
+
+            card.appendChild(body);
+
+            const footer = document.createElement('div');
+            footer.className = 'card-footer';
+            
+            const categoryBadge = document.createElement('span');
+            categoryBadge.className = `card-badge badge-${p.category}`;
+            categoryBadge.textContent = p.category;
+            footer.appendChild(categoryBadge);
+
+            if (p.featured) {
+                const featuredBadge = document.createElement('span');
+                featuredBadge.className = 'card-badge badge-featured';
+                featuredBadge.textContent = '⭐ En vitrine';
+                footer.appendChild(featuredBadge);
+            }
+
+            card.appendChild(footer);
+            cardGrid.appendChild(card);
         });
 
-        container.appendChild(list);
+        container.appendChild(cardGrid);
     } catch (error) {
         container.textContent = String(error);
     }
@@ -274,36 +326,92 @@ async function showProductsWithOrders() {
         });
 
         orders.forEach((order: Order) => {
-            const section = document.createElement('section');
-            section.className = 'order-section';
+            const orderCard = document.createElement('div');
+            orderCard.className = 'order-card-modern';
 
-            const title = document.createElement('h3');
-            title.textContent = `Commande #${order.id} — total ${order.total.toFixed(2)} € — statut: ${order.status}`;
-            title.className = 'clickable';
-            // Si tu veux un clic sur le titre de la commande :
-            title.addEventListener('click', () => {
+            const header = document.createElement('div');
+            header.className = 'order-card-header';
+            header.addEventListener('click', () => {
                 void showOrderDetails(order.id);
             });
-            section.appendChild(title);
 
-            const list = document.createElement('ul');
+            const titleDiv = document.createElement('div');
+            const title = document.createElement('h3');
+            title.className = 'order-card-title';
+            title.textContent = `Commande #${order.id}`;
+            
+            const dateSpan = document.createElement('span');
+            dateSpan.style.fontSize = '.8rem';
+            dateSpan.style.color = 'var(--muted)';
+            dateSpan.style.fontWeight = 'normal';
+            dateSpan.textContent = ` — ${new Date(order.createdAt).toLocaleDateString('fr-FR')}`;
+            title.appendChild(dateSpan);
+            
+            titleDiv.appendChild(title);
+            header.appendChild(titleDiv);
+
+            const meta = document.createElement('div');
+            meta.className = 'order-card-meta';
+            
+            const statusBadge = document.createElement('span');
+            statusBadge.className = `card-badge badge-${order.status}`;
+            statusBadge.textContent = order.status;
+            meta.appendChild(statusBadge);
+
+            const priceTag = document.createElement('span');
+            priceTag.className = 'card-price';
+            priceTag.textContent = `${order.total.toFixed(2)} €`;
+            meta.appendChild(priceTag);
+
+            header.appendChild(meta);
+            orderCard.appendChild(header);
+
+            const itemsList = document.createElement('ul');
+            itemsList.className = 'order-items';
+            
             order.productIds.forEach(pid => {
                 const prod = productById[pid];
                 const li = document.createElement('li');
+                li.className = 'order-item';
+                
                 if (prod) {
-                    li.textContent = `${prod.name} — ${prod.price.toFixed(2)} € (${prod.category})`;
-                    li.className = 'clickable';
-                    li.addEventListener('click', () => {
+                    const itemName = document.createElement('span');
+                    itemName.textContent = prod.name;
+                    li.appendChild(itemName);
+
+                    const itemInfo = document.createElement('span');
+                    itemInfo.style.display = 'flex';
+                    itemInfo.style.gap = '.5rem';
+                    itemInfo.style.alignItems = 'center';
+
+                    const categoryBadge = document.createElement('span');
+                    categoryBadge.className = `card-badge badge-${prod.category}`;
+                    categoryBadge.textContent = prod.category;
+                    categoryBadge.style.fontSize = '.65rem';
+                    itemInfo.appendChild(categoryBadge);
+
+                    const price = document.createElement('span');
+                    price.style.color = 'var(--accent)';
+                    price.style.fontWeight = '600';
+                    price.textContent = `${prod.price.toFixed(2)} €`;
+                    itemInfo.appendChild(price);
+
+                    li.appendChild(itemInfo);
+
+                    li.addEventListener('click', (e) => {
+                        e.stopPropagation();
                         void showProductDetails(prod.id);
                     });
                 } else {
                     li.textContent = `Produit #${pid} (inconnu)`;
+                    li.style.cursor = 'default';
                 }
-                list.appendChild(li);
+                
+                itemsList.appendChild(li);
             });
 
-            section.appendChild(list);
-            container.appendChild(section);
+            orderCard.appendChild(itemsList);
+            container.appendChild(orderCard);
         });
     } catch (error) {
         container.textContent = String(error);
@@ -316,20 +424,55 @@ async function showCustomers() {
 
     try {
         const customers = await customersService.getAll();
-        const list = document.createElement('ul');
+        const cardGrid = document.createElement('div');
+        cardGrid.className = 'card-grid';
 
         customers.forEach((c: Customer) => {
-            const li = document.createElement('li');
-            const fullName = `${c.firstName} ${c.lastName}`;
-            li.textContent = `${fullName} — ${c.email} — rôle: ${c.role}`;
-            li.className = 'clickable';
-            li.addEventListener('click', () => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.addEventListener('click', () => {
                 void showCustomerDetails(c.id);
             });
-            list.appendChild(li);
+
+            const header = document.createElement('div');
+            header.className = 'card-header';
+            
+            const title = document.createElement('h3');
+            title.className = 'card-title';
+            title.textContent = `${c.firstName} ${c.lastName}`;
+            
+            const roleBadge = document.createElement('span');
+            roleBadge.className = `card-badge badge-${c.role}`;
+            roleBadge.textContent = c.role;
+            
+            header.appendChild(title);
+            header.appendChild(roleBadge);
+            card.appendChild(header);
+
+            const body = document.createElement('div');
+            body.className = 'card-body';
+            
+            const emailField = document.createElement('div');
+            emailField.className = 'card-field';
+            emailField.innerHTML = `
+                <span class="card-label">📧 Email</span>
+                <span class="card-value">${c.email}</span>
+            `;
+            body.appendChild(emailField);
+
+            const idField = document.createElement('div');
+            idField.className = 'card-field';
+            idField.innerHTML = `
+                <span class="card-label">ID</span>
+                <span class="card-value">#${c.id}</span>
+            `;
+            body.appendChild(idField);
+
+            card.appendChild(body);
+            cardGrid.appendChild(card);
         });
 
-        container.appendChild(list);
+        container.appendChild(cardGrid);
     } catch (error) {
         container.textContent = String(error);
     }
