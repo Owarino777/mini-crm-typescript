@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String    // hashé avec bcrypt
+  name        String
+  role        UserRole  @default(USER)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  contacts    Contact[]
+}
+
+model Contact {
+  id         Int      @id @default(autoincrement())
+  nom        String
+  email      String
+  telephone  String
+  societe    String?
+  fonction   String?
+  statut     Statut   @default(prospect)
+  source     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/* -------- Atelier M1: e-commerce -------- */
+
+model Product {
+  id          Int      @id
+  name        String
+  description String
+  price       Float
+  image       String
+  category    String
+  featured    Boolean
+  stock       Int
+  orderItems  OrderItem[]
+}
+
+model Customer {
+  id        Int      @id
+  firstName String
+  lastName  String
+  email     String   @unique
+  role      String
+  password  String
+  orders    Order[]
+}
+
+model Order {
+  id        Int        @id
+  userId    Int
+  total     Float
+  status    String
+  createdAt DateTime
+  customer  Customer   @relation(fields: [userId], references: [id])
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+enum Statut {
+  prospect
+  client
+  inactif
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}

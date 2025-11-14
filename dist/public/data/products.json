@@ -1,0 +1,32 @@
+[
+    {
+        "id": 101,
+        "name": "T-shirt noir",
+        "description": "T-shirt unisexe en coton bio",
+        "price": 19.9,
+        "image": "/img/tshirt-black.jpg",
+        "category": "clothes",
+        "featured": true,
+        "stock": 42
+    },
+    {
+        "id": 102,
+        "name": "Mug TypeScript",
+        "description": "Mug 300ml avec logo TS",
+        "price": 12.5,
+        "image": "/img/mug-ts.jpg",
+        "category": "mugs",
+        "featured": false,
+        "stock": 0
+    },
+    {
+        "id": 103,
+        "name": "Casquette bleue",
+        "description": "Casquette en denim avec logo brodé",
+        "price": 15,
+        "image": "/img/cap-blue.jpg",
+        "category": "accessories",
+        "featured": true,
+        "stock": 15
+    }
+]

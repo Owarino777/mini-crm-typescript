@@ -1,0 +1,26 @@
+{
+  "name": "mini-crm-typescript",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "build:server": "npx tsc -p tsconfig.json",
+    "build:front": "npx tsc -p tsconfig.front.json",
+    "build": "npm run build:server && npm run build:front && xcopy src\\public dist\\public /E /I /Y",
+    "start": "node dist/index.js",
+    "watch": "npx tsc --watch",
+    "seed:shop": "node dist/scripts/seedShop.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "express": "^4.21.0",
+    "prisma": "^6.19.0"
+  }
+}
