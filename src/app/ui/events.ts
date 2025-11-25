@@ -1,7 +1,6 @@
-//// filepath: c:\Users\malik\M1-DFS 2025-2026\mini-crm-typescript\src\app\ui\events.ts
 import Contact from '../models/Contact.js';
 import ContactService from '../services/ContactService.js';
-import { renderContacts, showAlert, clearAlert } from './dom.js';
+import { renderContacts, showAlert, clearAlert, showContactsSkeleton } from './dom.js';
 
 const service = new ContactService();
 
@@ -85,6 +84,7 @@ export function setupEventListeners(): void {
 
 async function refreshList(): Promise<void> {
     try {
+        showContactsSkeleton();
         const contacts = await service.getAll();
         renderContacts(contacts);
     } catch {

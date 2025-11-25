@@ -9,15 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const BASE_URL = '/data';
+const BASE_URL = '/api';
 class OrdersService {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${BASE_URL}/orders.json`);
+            if (this.cache)
+                return this.cache;
+            const res = yield fetch(`${BASE_URL}/orders`);
             if (!res.ok) {
                 throw new Error('Impossible de charger la liste des commandes.');
             }
-            return yield res.json();
+            const data = yield res.json();
+            // Mapping API Prisma -> type front (avec productIds)
+            const mapped = data.map(o => {
+                var _a;
+                return ({
+                    id: o.id,
+                    userId: o.userId,
+                    total: o.total,
+                    status: o.status,
+                    createdAt: o.createdAt,
+                    productIds: ((_a = o.items) !== null && _a !== void 0 ? _a : []).map(i => i.productId),
+                });
+            });
+            this.cache = mapped;
+            return this.cache;
         });
     }
 }

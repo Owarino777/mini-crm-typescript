@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupEventListeners = setupEventListeners;
-//// filepath: c:\Users\malik\M1-DFS 2025-2026\mini-crm-typescript\src\app\ui\events.ts
 const Contact_js_1 = __importDefault(require("../models/Contact.js"));
 const ContactService_js_1 = __importDefault(require("../services/ContactService.js"));
 const dom_js_1 = require("./dom.js");
@@ -92,6 +91,7 @@ function setupEventListeners() {
 function refreshList() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            (0, dom_js_1.showContactsSkeleton)();
             const contacts = yield service.getAll();
             (0, dom_js_1.renderContacts)(contacts);
         }

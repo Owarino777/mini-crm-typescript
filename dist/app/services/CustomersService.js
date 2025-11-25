@@ -9,15 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const BASE_URL = '/data';
+const BASE_URL = '/api';
 class CustomersService {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${BASE_URL}/customers.json`);
+            if (this.cache)
+                return this.cache;
+            const res = yield fetch(`${BASE_URL}/customers`);
             if (!res.ok) {
                 throw new Error('Impossible de charger la liste des clients.');
             }
-            return yield res.json();
+            this.cache = (yield res.json());
+            return this.cache;
         });
     }
 }

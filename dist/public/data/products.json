@@ -28,5 +28,95 @@
         "category": "accessories",
         "featured": true,
         "stock": 15
+    },
+    {
+        "id": 104,
+        "name": "Hoodie gris",
+        "description": "Sweat capuche molleton",
+        "price": 39.9,
+        "image": "/img/hoodie-gray.jpg",
+        "category": "clothes",
+        "featured": false,
+        "stock": 18
+    },
+    {
+        "id": 105,
+        "name": "Sticker pack",
+        "description": "Pack 10 stickers dev",
+        "price": 4.9,
+        "image": "/img/stickers.jpg",
+        "category": "accessories",
+        "featured": false,
+        "stock": 200
+    },
+    {
+        "id": 106,
+        "name": "Mug Dark Mode",
+        "description": "Mug 300ml thème dark",
+        "price": 13.9,
+        "image": "/img/mug-dark.jpg",
+        "category": "mugs",
+        "featured": true,
+        "stock": 35
+    },
+    {
+        "id": 107,
+        "name": "Sac tote bag",
+        "description": "Tote bag coton bio",
+        "price": 7.5,
+        "image": "/img/tote.jpg",
+        "category": "accessories",
+        "featured": false,
+        "stock": 60
+    },
+    {
+        "id": 108,
+        "name": "T-shirt blanc",
+        "description": "T-shirt unisexe blanc",
+        "price": 18.5,
+        "image": "/img/tshirt-white.jpg",
+        "category": "clothes",
+        "featured": false,
+        "stock": 0
+    },
+    {
+        "id": 109,
+        "name": "Casquette noire",
+        "description": "Casquette noire sobre",
+        "price": 16,
+        "image": "/img/cap-black.jpg",
+        "category": "accessories",
+        "featured": false,
+        "stock": 9
+    },
+    {
+        "id": 110,
+        "name": "Sweat zippé",
+        "description": "Sweat à zip premium",
+        "price": 49,
+        "image": "/img/zip-hoodie.jpg",
+        "category": "clothes",
+        "featured": true,
+        "stock": 12
+    },
+    {
+        "id": 111,
+        "name": "Mug RGAA",
+        "description": "Mug accessibilité",
+        "price": 11.9,
+        "image": "/img/mug-a11y.jpg",
+        "category": "mugs",
+        "featured": false,
+        "stock": 22
+    },
+    {
+        "id": 112,
+        "name": "Gourde alu",
+        "description": "Bouteille aluminium 500ml",
+        "price": 14.9,
+        "image": "/img/bottle.jpg",
+        "category": "accessories",
+        "featured": true,
+        "stock": 28
     }
 ]

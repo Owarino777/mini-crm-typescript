@@ -7,15 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const BASE_URL = '/data';
+const BASE_URL = '/api';
 export default class ProductsService {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${BASE_URL}/products.json`);
+            if (this.cache)
+                return this.cache;
+            const res = yield fetch(`${BASE_URL}/products`);
             if (!res.ok) {
                 throw new Error('Impossible de charger la liste des produits.');
             }
-            return yield res.json();
+            this.cache = (yield res.json());
+            return this.cache;
         });
     }
 }

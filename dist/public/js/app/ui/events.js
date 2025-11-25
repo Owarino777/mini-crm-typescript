@@ -7,10 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-//// filepath: c:\Users\malik\M1-DFS 2025-2026\mini-crm-typescript\src\app\ui\events.ts
 import Contact from '../models/Contact.js';
 import ContactService from '../services/ContactService.js';
-import { renderContacts, showAlert, clearAlert } from './dom.js';
+import { renderContacts, showAlert, clearAlert, showContactsSkeleton } from './dom.js';
 const service = new ContactService();
 export function setupEventListeners() {
     const form = document.getElementById('contact-form');
@@ -86,6 +85,7 @@ export function setupEventListeners() {
 function refreshList() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            showContactsSkeleton();
             const contacts = yield service.getAll();
             renderContacts(contacts);
         }

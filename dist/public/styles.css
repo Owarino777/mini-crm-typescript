@@ -1,17 +1,80 @@
+/* -------------------------
+   DESIGN SYSTEM – TOKENS
+-------------------------- */
 :root {
-    --bg: #0f172a;
+    /* Couleurs de fond */
+    --bg: #020617;
     --bg-panel: #020617;
-    --bg-soft: #111827;
-    --accent: #3b82f6;
-    --accent-soft: rgba(59, 130, 246, 0.15);
-    --danger: #ef4444;
+    --bg-soft: #0b1220;
+
+    /* Couleurs de texte */
     --text: #e5e7eb;
     --muted: #9ca3af;
+
+    /* Accent principal (inspiré LinkedIn) */
+    --accent: #2563eb;
+    --accent-soft: rgba(37, 99, 235, 0.18);
+    --accent-strong: #1d4ed8;
+
+    /* Bordures */
+    --border-subtle: rgba(148, 163, 184, 0.15);
+    --border-strong: rgba(31, 41, 55, 0.9);
+
+    /* États */
+    --success: #16a34a;
+    --success-soft: rgba(22, 163, 74, 0.15);
+    --danger: #ef4444;
+    --danger-soft: rgba(239, 68, 68, 0.18);
+    --warning: #f97316;
+    --info: #0ea5e9;
+
+    /* Statuts contacts */
+    --badge-prospect-bg: rgba(37, 99, 235, 0.18);
+    --badge-prospect-text: #bfdbfe;
+    --badge-client-bg: rgba(22, 163, 74, 0.18);
+    --badge-client-text: #bbf7d0;
+    --badge-inactif-bg: rgba(148, 163, 184, 0.18);
+    --badge-inactif-text: #e5e7eb;
+
+    /* Statuts commandes */
+    --badge-order-pending-bg: rgba(234, 179, 8, 0.18);
+    --badge-order-pending-text: #facc15;
+    --badge-order-paid-bg: rgba(22, 163, 74, 0.18);
+    --badge-order-paid-text: #bbf7d0;
+    --badge-order-cancelled-bg: rgba(239, 68, 68, 0.18);
+    --badge-order-cancelled-text: #fecaca;
+
+    /* Rôles clients */
+    --badge-role-customer-bg: rgba(59, 130, 246, 0.15);
+    --badge-role-customer-text: #bfdbfe;
+    --badge-role-admin-bg: rgba(192, 38, 211, 0.18);
+    --badge-role-admin-text: #f5d0fe;
+
+    /* Autres tokens */
     --radius: 12px;
+    --radius-sm: 999px;
     --shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
     --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+
+    /* Typo scale */
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.85rem;
+    --fs-md: 0.95rem;
+    --fs-lg: 1.1rem;
+    --fs-xl: 2rem;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 0.75rem;
+    --space-lg: 1rem;
+    --space-xl: 1.5rem;
+
+    /* Focus */
+    --focus-ring: 0 0 0 2px #0ea5e9, 0 0 0 4px rgba(14, 165, 233, 0.4);
 }
 
+/* Reset & base */
 *,
 *::before,
 *::after {
@@ -32,6 +95,9 @@ body {
     padding: 2rem 1rem 3rem;
 }
 
+/* -------------------------
+   ORGANISMES – HEADER/PANELS
+-------------------------- */
 .header {
     text-align: left;
     margin-bottom: 2rem;
@@ -39,7 +105,7 @@ body {
 
 .header h1 {
     margin: 0 0 .25rem;
-    font-size: 2rem;
+    font-size: var(--fs-xl);
     letter-spacing: .05em;
 }
 
@@ -54,7 +120,7 @@ body {
     border-radius: var(--radius);
     padding: 1.5rem 1.5rem 1.25rem;
     box-shadow: var(--shadow);
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    border: 1px solid var(--border-subtle);
     margin-bottom: 1.5rem;
 }
 
@@ -74,8 +140,9 @@ body {
     max-width: 260px;
 }
 
-/* Form */
-
+/* -------------------------
+   ATOMES – FORM / INPUTS
+-------------------------- */
 .form-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -87,20 +154,20 @@ label {
     display: flex;
     flex-direction: column;
     gap: .35rem;
-    font-size: .85rem;
+    font-size: var(--fs-sm);
     color: var(--muted);
 }
 
 input,
 select {
     padding: .55rem .7rem;
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     border: 1px solid rgba(148, 163, 184, 0.4);
     background: rgba(15, 23, 42, 0.9);
     color: var(--text);
     font-size: .9rem;
     outline: none;
-    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease, transform .05s ease;
 }
 
 input::placeholder {
@@ -114,16 +181,34 @@ select:focus {
     background: rgba(15, 23, 42, 1);
 }
 
-/* Buttons */
+/* Focus visible pour tous les éléments interactifs */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
 
+/* -------------------------
+   ATOMES – BOUTONS
+-------------------------- */
 .btn {
     border: none;
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     padding: .5rem 1.1rem;
     font-size: .9rem;
     cursor: pointer;
     font-weight: 500;
-    transition: transform .1s ease, box-shadow .1s ease, background .15s ease;
+    transition: transform .1s ease, box-shadow .1s ease, background .15s ease, opacity .15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
 }
 
 .btn-primary {
@@ -132,47 +217,60 @@ select:focus {
     box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
     transform: translateY(-1px);
     box-shadow: 0 16px 45px rgba(37, 99, 235, 0.6);
+}
+
+.btn-secondary {
+    background: rgba(15, 23, 42, 0.9);
+    color: var(--text);
+    border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: rgba(31, 41, 55, 1);
 }
 
 .btn-danger {
     background: rgba(248, 113, 113, 0.12);
     color: #fecaca;
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     padding: .3rem .8rem;
     font-size: .8rem;
+    border: 1px solid rgba(248, 113, 113, 0.55);
 }
 
-.btn-danger:hover {
+.btn-danger:hover:not(:disabled) {
     background: rgba(248, 113, 113, 0.2);
 }
 
-/* Alerts */
-
+/* -------------------------
+   ATOMES – ALERTES
+-------------------------- */
 .alert {
     display: none;
     margin-bottom: .75rem;
     padding: .5rem .85rem;
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     font-size: .82rem;
 }
 
 .alert-success {
     display: block;
-    background: rgba(22, 163, 74, 0.15);
+    background: var(--success-soft);
     color: #bbf7d0;
 }
 
 .alert-error {
     display: block;
-    background: rgba(239, 68, 68, 0.18);
+    background: var(--danger-soft);
     color: #fecaca;
 }
 
-/* Contact list */
-
+/* -------------------------
+   MOLÉCULES – LISTE CONTACTS
+-------------------------- */
 .contact-list {
     list-style: none;
     margin: 0;
@@ -187,7 +285,7 @@ select:focus {
     padding: .7rem .85rem;
     border-radius: .9rem;
     background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(31, 41, 55, 0.9);
+    border: 1px solid var(--border-strong);
     margin-bottom: .4rem;
 }
 
@@ -213,29 +311,64 @@ select:focus {
     gap: .5rem;
 }
 
+/* -------------------------
+   ATOMES – BADGES
+-------------------------- */
 .badge {
     padding: .15rem .6rem;
-    border-radius: 999px;
-    font-size: .7rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-xs);
     text-transform: uppercase;
     letter-spacing: .04em;
+    white-space: nowrap;
 }
 
+/* Contacts */
 .badge-prospect {
-    background: rgba(59, 130, 246, 0.15);
-    color: #bfdbfe;
+    background: var(--badge-prospect-bg);
+    color: var(--badge-prospect-text);
 }
 
 .badge-client {
-    background: rgba(16, 185, 129, 0.15);
-    color: #a7f3d0;
+    background: var(--badge-client-bg);
+    color: var(--badge-client-text);
 }
 
 .badge-inactif {
-    background: rgba(148, 163, 184, 0.15);
-    color: #e5e7eb;
+    background: var(--badge-inactif-bg);
+    color: var(--badge-inactif-text);
 }
 
+/* Commandes */
+.badge-order-pending {
+    background: var(--badge-order-pending-bg);
+    color: var(--badge-order-pending-text);
+}
+
+.badge-order-paid {
+    background: var(--badge-order-paid-bg);
+    color: var(--badge-order-paid-text);
+}
+
+.badge-order-cancelled {
+    background: var(--badge-order-cancelled-bg);
+    color: var(--badge-order-cancelled-text);
+}
+
+/* Rôles clients */
+.badge-role-customer {
+    background: var(--badge-role-customer-bg);
+    color: var(--badge-role-customer-text);
+}
+
+.badge-role-admin {
+    background: var(--badge-role-admin-bg);
+    color: var(--badge-role-admin-text);
+}
+
+/* -------------------------
+   ATOMES – INTERACTIFS
+-------------------------- */
 .clickable {
     cursor: pointer;
 }
@@ -244,6 +377,9 @@ select:focus {
     text-decoration: underline;
 }
 
+/* -------------------------
+   MOLÉCULES – FICHES DÉTAILLÉES
+-------------------------- */
 .detail-list {
     display: grid;
     grid-template-columns: max-content 1fr;
@@ -266,13 +402,111 @@ select:focus {
     margin: .5rem 0;
     border-radius: .6rem;
     background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(31, 41, 55, 0.9);
+    border: 1px solid var(--border-strong);
 }
 
 .order-section {
     margin-bottom: 1rem;
 }
 
+/* -------------------------
+   ACCESSIBILITÉ
+-------------------------- */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: -999px;
+    background: #fff;
+    color: #000;
+    padding: .5rem 1rem;
+    z-index: 1000;
+}
+
+.skip-link:focus-visible {
+    left: 1rem;
+    top: 1rem;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* -------------------------
+   MOLÉCULE – TOOLBAR SHOP
+-------------------------- */
+.shop-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* -------------------------
+   FORM – ACTIONS & ÉTATS
+-------------------------- */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: .25rem;
+}
+
+/* État "aucun contact" */
+.empty-state {
+    margin-top: .75rem;
+    font-size: var(--fs-sm);
+    color: var(--muted);
+}
+
+/* Compteur de contacts */
+.contact-counter {
+    font-size: var(--fs-xs);
+    color: var(--muted);
+    padding: .1rem .5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+}
+
+/* -------------------------
+   SKELETONS
+-------------------------- */
+
+.skeleton {
+    background: linear-gradient(90deg,
+            rgba(51, 65, 85, 0.4),
+            rgba(148, 163, 184, 0.4),
+            rgba(51, 65, 85, 0.4));
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.2s ease-in-out infinite;
+}
+
+.skeleton-line {
+    height: .7rem;
+    border-radius: 999px;
+    margin-bottom: .3rem;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* -------------------------
+   RESPONSIVE
+-------------------------- */
 @media (max-width: 720px) {
     .contact-item {
         align-items: flex-start;
@@ -283,4 +517,100 @@ select:focus {
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .page {
+        padding-inline: .75rem;
+    }
+}
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .6rem 1rem;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: .03em;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: .8rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar a {
+    color: var(--text);
+    text-decoration: none;
+    padding: .35rem .6rem;
+    border-radius: 8px;
+}
+
+.navbar a:hover,
+.navbar a:focus-visible {
+    background: rgba(148, 163, 184, .12);
+}
+
+/* DASHBOARD */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background: rgba(15, 23, 42, .7);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1rem;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: .85rem;
+    margin-bottom: .35rem;
+}
+
+.stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+/* CONTACTS tools + pagination */
+.contacts-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+}
+
+.pagination {
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: .75rem;
+}
+
+/* Theme light option */
+:root[data-theme="light"] {
+    --bg: #ffffff;
+    --bg-panel: #ffffff;
+    --bg-soft: #f7fafc;
+    --text: #111827;
+    --muted: #6b7280;
+    --border-subtle: rgba(17, 24, 39, .12);
+    --shadow: 0 8px 25px rgba(0, 0, 0, .07);
+    /* accents unchanged for contrast */
 }

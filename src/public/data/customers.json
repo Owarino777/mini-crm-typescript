@@ -22,5 +22,61 @@
         "email": "admin@example.com",
         "role": "admin",
         "password": "hashed_pwd_admin"
+    },
+    {
+        "id": 4,
+        "firstName": "Claire",
+        "lastName": "Monet",
+        "email": "claire@example.com",
+        "role": "customer",
+        "password": "pwd"
+    },
+    {
+        "id": 5,
+        "firstName": "David",
+        "lastName": "Bernard",
+        "email": "david@example.com",
+        "role": "customer",
+        "password": "pwd"
+    },
+    {
+        "id": 6,
+        "firstName": "Emma",
+        "lastName": "Fabre",
+        "email": "emma@example.com",
+        "role": "customer",
+        "password": "pwd"
+    },
+    {
+        "id": 7,
+        "firstName": "Farid",
+        "lastName": "Khan",
+        "email": "farid@example.com",
+        "role": "customer",
+        "password": "pwd"
+    },
+    {
+        "id": 8,
+        "firstName": "Gina",
+        "lastName": "Lopez",
+        "email": "gina@example.com",
+        "role": "customer",
+        "password": "pwd"
+    },
+    {
+        "id": 9,
+        "firstName": "Hugo",
+        "lastName": "Morel",
+        "email": "hugo@example.com",
+        "role": "customer",
+        "password": "pwd"
+    },
+    {
+        "id": 10,
+        "firstName": "Irina",
+        "lastName": "Petrova",
+        "email": "irina@example.com",
+        "role": "customer",
+        "password": "pwd"
     }
 ]
